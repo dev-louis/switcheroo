@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Switcheroo
+
+A modern search engine replacement that lets you switch between multiple search providers in real time, including AI-powered search. Choose the best engine for the task, on the fly.
+
+## Overview
+
+Switcheroo gives you the freedom to effortlessly switch between different search engines without changing tabs or browsers. Whether you need Google's broad reach, DuckDuckGo's privacy, or the power of AI search engines like Perplexity, Switcheroo puts them all at your fingertips.
+
+## Features
+
+- **Multiple Search Engines**: Switch between popular search providers with a single click
+- **Customisable Engine Selection**: Enable or disable search engines based on your preferences
+- **AI-Powered Search Integration**: Access modern AI search tools alongside traditional engines
+- **Dark/Light Mode**: Automatically adapts to your system preferences or set manually
+- **Persistent Settings**: Your preferences are saved locally for future sessions
+- **Responsive Design**: Works seamlessly across desktop and mobile devices
 
 ## Getting Started
 
-First, run the development server:
+### Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/switcheroo.git
+cd switcheroo
+```
+
+### Install dependencies:
+
+```bash
+npm install
+```
+
+### Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Open your browser and navigate to:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Usage
 
-## Learn More
+1. Enter your search query in the main input field
+2. Select your preferred search engine from the dropdown
+3. Press Enter or click the search button
+4. To customise which search engines appear, click "Settings" and toggle engines on/off
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Shadcn/UI**
+- **Next-themes**
+- **Zod** (for form validation)
+- **Tailwind CSS**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contributing
 
-## Deploy on Vercel
+Contributions are welcome! Feel free to open issues or submit pull requests to help improve Switcheroo.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We use `@better-commits` to standardise commit messages and maintain a clean git history. Please install and use it when contributing:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm install -g better-commits
+```
+
+Then use `better-commits` instead of `git commit` when making changes.
+
+### Steps to contribute:
+
+1. Fork the repository
+2. Create your feature branch:
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. Make your changes
+4. Commit using better-commits:
+   ```bash
+   better-commits
+   ```
+5. Push to the branch:
+   ```bash
+   git push origin feature/amazing-feature
+   ```
+6. Open a Pull Request
+
+## Licence
+
+This project is licensed under the MIT Licence - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- All the search engines integrated in this application
+- The open-source community for the amazing tools and libraries used
+- Built in 🇬🇧 by Louis
