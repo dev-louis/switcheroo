@@ -32,4 +32,17 @@ export const engines = [
     notes:
       "Unfortunately, as of current Claude has no ability to automatically execute the query. However, we will automatically fill the query for you, then you can simply enter. If you are looking for a more automated experience, please consider using another engine.",
   },
+  {
+    engine: "unduck",
+    image: "/engines/unduck.png",
+    url: "https://unduck.link",
+    notes:
+      "Used to Firefox's 'bangs'? This new engine will provide the same functionality!",
+  },
+  {
+    engine: "github",
+    image: "/engines/github.png",
+    darkImage: "/engines/github-dark.png",
+    url: "https://github.com/search",
+  },
 ];
