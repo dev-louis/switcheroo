@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import ExportedImage from "next-image-export-optimizer";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -32,6 +31,7 @@ import { SearchIcon } from "lucide-react";
 import { engines } from "@/lib/engines";
 import { searchErrorMessages } from "@/lib/messages";
 import { getEnabledEngines } from "@/lib/settings";
+import { Engine } from "../../types";
 
 const formSchema = z.object({
   search: z.string().min(1, {
@@ -46,10 +46,16 @@ const formSchema = z.object({
 });
 
 const BrowserBar = () => {
-  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const { theme, resolvedTheme } = useTheme();
   const router = useRouter();
   const searchParams = useSearchParams();
   const enabledEngines = getEnabledEngines();
+
+  // Handle mounting state for theme hydration
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Make sure we have a default engine even if enabledEngines is empty
   const defaultEngine =
@@ -67,39 +73,45 @@ const BrowserBar = () => {
     // Skip if there are no enabled engines
     if (enabledEngines.length === 0) return;
 
+    // Update form engine value if the current one is disabled
     const currentEngine = form.getValues("engine");
-    if (!enabledEngines.find((e) => e.engine === currentEngine)) {
-      const firstEnabled = enabledEngines[0].engine;
-      form.setValue("engine", firstEnabled);
-
-      const currentUrl = new URL(window.location.href);
-      currentUrl.searchParams.set("engine", firstEnabled);
-      router.replace(currentUrl.toString(), { scroll: false });
+    const isCurrentEngineEnabled = enabledEngines.some(
+      (e) => e.engine === currentEngine
+    );
+    if (!isCurrentEngineEnabled) {
+      form.setValue("engine", enabledEngines[0].engine);
     }
-  }, [enabledEngines, form, router]);
+  }, [enabledEngines, form]);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Create search engine URL
-    const url = new URL(engines.find((e) => e.engine === values.engine)!.url);
-    url.searchParams.append("q", values.search);
+    const engine = engines.find((e) => e.engine === values.engine);
+    if (!engine) return;
 
-    // Update current URL params for history/sharing
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set("q", values.search);
-    currentUrl.searchParams.set("engine", values.engine);
-    router.replace(currentUrl.toString(), { scroll: false });
-
-    // Navigate to the search engine
-    window.location.href = url.toString();
+    let url = engine.url.replace(
+      "{searchTerm}",
+      encodeURIComponent(values.search)
+    );
+    window.location.href = url;
   }
+
+  // Check if the current theme is dark (using resolvedTheme to detect system preference)
+  const isDarkTheme = mounted && resolvedTheme === "dark";
+
+  // Helper function to get the correct image source based on theme
+  const getEngineSrc = (engine: Engine) => {
+    if (isDarkTheme && engine.darkImage) {
+      return engine.darkImage;
+    }
+    return engine.image;
+  };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-row w-full container justify-center gap-2"
+        className="flex items-center gap-2"
       >
-        <div className="flex flex-row space-x-0">
+        <div className="flex">
           <FormField
             control={form.control}
             name="engine"
@@ -109,7 +121,7 @@ const BrowserBar = () => {
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
-                    {...field}
+                    value={field.value}
                   >
                     <SelectTrigger className="h-11 rounded-e-none w-[5.5em]">
                       <SelectValue placeholder="?" />
@@ -118,11 +130,7 @@ const BrowserBar = () => {
                       {enabledEngines.map((engine) => (
                         <SelectItem key={engine.engine} value={engine.engine}>
                           <ExportedImage
-                            src={
-                              theme === "dark" && engine.darkImage
-                                ? engine.darkImage
-                                : engine.image
-                            }
+                            src={getEngineSrc(engine)}
                             alt={engine.engine}
                             width={24}
                             height={24}
@@ -166,7 +174,6 @@ const BrowserBar = () => {
                     placeholder="Enter something to search..."
                     autoFocus
                     {...field}
-                    /* Remove the onChange handler that updates URL with every keystroke */
                   />
                 </FormControl>
                 <FormMessage />
