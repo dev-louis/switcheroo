@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -88,7 +88,7 @@ const FooterBar = () => {
                     className="flex items-center justify-between"
                   >
                     <div className="flex items-center gap-2">
-                      <Image
+                      <ExportedImage
                         src={
                           theme === "dark" && engine.darkImage
                             ? engine.darkImage

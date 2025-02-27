@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useCallback } from "react";
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -117,7 +117,7 @@ const BrowserBar = () => {
                     <SelectContent className="max-w-[6em]">
                       {enabledEngines.map((engine) => (
                         <SelectItem key={engine.engine} value={engine.engine}>
-                          <Image
+                          <ExportedImage
                             src={
                               theme === "dark" && engine.darkImage
                                 ? engine.darkImage
