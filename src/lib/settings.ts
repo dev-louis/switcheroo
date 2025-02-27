@@ -43,3 +43,22 @@ export function getEnabledEngines() {
       return orderA - orderB;
     });
 }
+
+// New helper function to update engine order
+export function updateEngineOrder(orderedEngineIds: string[]) {
+  const prefs = getEnginePreferences();
+
+  // Create new preferences with updated order
+  const updatedPrefs = { ...prefs };
+  orderedEngineIds.forEach((engineId, index) => {
+    if (updatedPrefs[engineId]) {
+      updatedPrefs[engineId] = {
+        ...updatedPrefs[engineId],
+        order: index,
+      };
+    }
+  });
+
+  saveEnginePreferences(updatedPrefs);
+  return updatedPrefs;
+}
