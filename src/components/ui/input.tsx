@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
+import { Button } from "./button";
 
 const Input = React.forwardRef<
   HTMLInputElement,
@@ -19,9 +20,10 @@ const Input = React.forwardRef<
         {...props}
       />
       {showClearButton && (
-        <button
-          type="button"
-          className={`absolute right-3 top-1/2 -translate-y-1/2 transform transition duration-300 ${
+        <Button
+          variant="ghost"
+          size="icon"
+          className={`absolute right-1 top-1/2 -translate-y-1/2 transform transition duration-300 ${
             props.value ? "scale-100" : "scale-75 opacity-0"
           }`}
           onClick={() => {
@@ -34,7 +36,7 @@ const Input = React.forwardRef<
           }}
         >
           <XIcon size="18" />
-        </button>
+        </Button>
       )}
     </div>
   );

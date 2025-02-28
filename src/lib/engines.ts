@@ -47,4 +47,10 @@ export const engines: Engine[] = [
     darkImage: "/engines/github-dark.png",
     url: "https://github.com/search?q={searchTerm}",
   },
+  {
+    engine: "perplexity",
+    image: "/engines/perplexity.png",
+    url: "https://perplexity.ai?q={searchTerm}",
+    notes: "Useful for referencing real world sources.",
+  },
 ];

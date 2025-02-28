@@ -170,7 +170,7 @@ const BrowserBar = () => {
                 <FormControl>
                   <Input
                     showClearButton
-                    className="w-[250px] md:w-[400px] lg:w-[500px] h-11 rounded-s-none text-lg"
+                    className="w-[250px] md:w-[400px] lg:w-[500px] h-11 rounded-s-none text-lg pr-9"
                     placeholder="Enter something to search..."
                     autoFocus
                     {...field}
